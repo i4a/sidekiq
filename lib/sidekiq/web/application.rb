@@ -57,12 +57,11 @@ module Sidekiq
     end
 
     get "/queues" do
-      @queues = Sidekiq::Queue.all
-      # @queues = Sidekiq::Queue.all.select do |q|
-      #             Account.all.detect do |a|
-      #               q.name.include? a.uid
-      #             end
-      #           end
+      @queues = Sidekiq::Queue.all.select do |q|
+                  Account.all.detect do |a|
+                    q.name.include? a.uid
+                  end
+                end
 
       erb(:queues)
     end
